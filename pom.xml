@@ -32,6 +32,13 @@
     -->
 
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
+		
+		<dependency>
+		    <groupId>org.apache.hadoop</groupId>
+		    <artifactId>hadoop-mapreduce-client-core</artifactId>
+		    <version>3.4.0</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-elephas-io</artifactId>
