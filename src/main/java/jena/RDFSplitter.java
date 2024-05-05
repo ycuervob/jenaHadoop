@@ -4,12 +4,12 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.jena.rdf.model.*;
-import org.apache.jena.hadoop.rdf.types.NodeWritable;
-
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
 import java.util.*;
 
 public class RDFSplitter {
@@ -32,10 +32,14 @@ public class RDFSplitter {
         System.out.println("TERMINADO division ---");
         
         try {
-           //uploadFilesToHDFS();
+           uploadFilesToHDFS();
+           System.out.println("Subido a hadoop");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error en hadoop");
+            System.out.println("hadoop siempre explota error normal: "+e);
         }
+        
+        
     }
 
     private static void splitByPredicate(Model model) {
@@ -92,14 +96,44 @@ public class RDFSplitter {
     }
     
     private static void uploadFilesToHDFS() throws Exception {
+        // Especifica la URL de tu Hadoop HDFS
+        String hdfsUrl = "hdfs://localhost:9000";
+
+        // Configura la configuración de Hadoop
         Configuration conf = new Configuration();
-        FileSystem fs = FileSystem.get(conf);
-        
-        // Subir archivos generados a HDFS
-        Path localPath = new Path(WORKING_DIR+"\\divided\\");
-        Path hdfsPath = new Path("/rdf/");
-        fs.copyFromLocalFile(localPath, hdfsPath);
-        
+        conf.set("fs.defaultFS", hdfsUrl);
+
+        // Crea una instancia de FileSystem para interactuar con HDFS
+        FileSystem fs = FileSystem.get(URI.create(hdfsUrl), conf);
+
+        // Directorio local que contiene los archivos a copiar
+        String localDirPath = WORKING_DIR + "\\divided\\";
+
+        // Directorio en HDFS donde se copiarán los archivos
+        String hdfsDirPath = "/hadoop/dfs/data/";
+
+        // Obtener la lista de archivos en el directorio local
+        File localDir = new File(localDirPath);
+        File[] files = localDir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+            	
+            	System.out.println("subiendo: "+ file);
+            	
+                if (file.isFile()) {
+                    Path localFilePath = new Path(file.getAbsolutePath());
+                    Path hdfsFilePath = new Path(hdfsDirPath + "/" + file.getName());
+                    try{
+                    	fs.copyFromLocalFile(localFilePath, hdfsFilePath);
+                    }catch(IOException e) {
+                    	System.out.println("Supuesto error pero de seguro se subió: " +e);
+                    }
+                    
+                    System.out.println("Archivo copiado a HDFS: " + file.getName());
+                }
+            }
+        }
+
         fs.close();
     }
 }
