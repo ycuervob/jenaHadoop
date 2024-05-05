@@ -14,7 +14,7 @@ public class RDFSplitter {
 	
 	//Cambiar esta ruta por ruta en pc propopio
 	//en la ruta debe estar el archivo datos_libros.ttl
-	private static String WORKING_DIR = "C:\\Users\\yeiso\\OneDrive\\Documentos\\Jena\\";
+	private static String WORKING_DIR = ".\\JenaTaller\\";
 
     public static void main(String[] args) {
         String inputFilePath =WORKING_DIR+ "datos_libros.ttl";

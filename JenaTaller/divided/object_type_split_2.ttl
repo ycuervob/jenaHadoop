@@ -1,0 +1,20 @@
+<http://www.si2.com/si2/los_juegos_del_hambre>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/el_senor_de_los_anillos>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/the_witcher>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/harry_potter>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/cronicas_de_narnia>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/la_rueda_del_tiempo>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/cancion_de_hielo_y_fuego>
+        a       <http://purl.org/dc/elements/1.1/Collection> .

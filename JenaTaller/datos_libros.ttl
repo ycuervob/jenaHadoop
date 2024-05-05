@@ -1,0 +1,200 @@
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX eg: <http://www.si2.com/si2/>
+
+# Saga: Harry Potter
+eg:harry_potter
+    rdf:type dc:Collection ;
+    dc:title "Harry Potter Saga" .
+
+eg:libro1
+    rdf:type dc:BibliographicResource ;
+    dc:title "Harry Potter y la piedra filosofal" ;
+    dc:creator "J.K. Rowling" ;
+    dc:isPartOf eg:harry_potter .
+
+eg:libro2
+    rdf:type dc:BibliographicResource ;
+    dc:title "Harry Potter y la cámara secreta" ;
+    dc:creator "J.K. Rowling" ;
+    dc:isPartOf eg:harry_potter .
+
+eg:libro3
+    rdf:type dc:BibliographicResource ;
+    dc:title "Harry Potter y el prisionero de Azkaban" ;
+    dc:creator "J.K. Rowling" ;
+    dc:isPartOf eg:harry_potter .
+
+eg:libro4
+    rdf:type dc:BibliographicResource ;
+    dc:title "Harry Potter y el cáliz de fuego" ;
+    dc:creator "J.K. Rowling" ;
+    dc:isPartOf eg:harry_potter .
+
+eg:libro5
+    rdf:type dc:BibliographicResource ;
+    dc:title "Harry Potter y la Orden del Fénix" ;
+    dc:creator "J.K. Rowling" ;
+    dc:isPartOf eg:harry_potter .
+
+eg:libro6
+    rdf:type dc:BibliographicResource ;
+    dc:title "Harry Potter y el misterio del príncipe" ;
+    dc:creator "J.K. Rowling" ;
+    dc:isPartOf eg:harry_potter .
+
+eg:libro7
+    rdf:type dc:BibliographicResource ;
+    dc:title "Harry Potter y las reliquias de la Muerte" ;
+    dc:creator "J.K. Rowling" ;
+    dc:isPartOf eg:harry_potter .
+
+# Saga: El Señor de los Anillos
+eg:el_senor_de_los_anillos
+    rdf:type dc:Collection ;
+    dc:title "El Señor de los Anillos Saga" .
+
+eg:libro8
+    rdf:type dc:BibliographicResource ;
+    dc:title "El Señor de los Anillos: La comunidad del anillo" ;
+    dc:creator "J.R.R. Tolkien" ;
+    dc:isPartOf eg:el_senor_de_los_anillos .
+
+eg:libro9
+    rdf:type dc:BibliographicResource ;
+    dc:title "El Señor de los Anillos: Las dos torres" ;
+    dc:creator "J.R.R. Tolkien" ;
+    dc:isPartOf eg:el_senor_de_los_anillos .
+
+eg:libro10
+    rdf:type dc:BibliographicResource ;
+    dc:title "El Señor de los Anillos: El retorno del rey" ;
+    dc:creator "J.R.R. Tolkien" ;
+    dc:isPartOf eg:el_senor_de_los_anillos .
+
+# Saga: Crónicas de Narnia
+eg:cronicas_de_narnia
+    rdf:type dc:Collection ;
+    dc:title "Crónicas de Narnia Saga" .
+
+eg:libro11
+    rdf:type dc:BibliographicResource ;
+    dc:title "El león, la bruja y el armario" ;
+    dc:creator "C.S. Lewis" ;
+    dc:isPartOf eg:cronicas_de_narnia .
+
+eg:libro12
+    rdf:type dc:BibliographicResource ;
+    dc:title "El príncipe Caspian" ;
+    dc:creator "C.S. Lewis" ;
+    dc:isPartOf eg:cronicas_de_narnia .
+
+eg:libro13
+    rdf:type dc:BibliographicResource ;
+    dc:title "La travesía del Viajero del Alba" ;
+    dc:creator "C.S. Lewis" ;
+    dc:isPartOf eg:cronicas_de_narnia .
+
+# Saga: The Witcher
+eg:the_witcher
+    rdf:type dc:Collection ;
+    dc:title "The Witcher Saga" .
+
+eg:libro14
+    rdf:type dc:BibliographicResource ;
+    dc:title "El último deseo" ;
+    dc:creator "Andrzej Sapkowski" ;
+    dc:isPartOf eg:the_witcher .
+
+eg:libro15
+    rdf:type dc:BibliographicResource ;
+    dc:title "La espada del destino" ;
+    dc:creator "Andrzej Sapkowski" ;
+    dc:isPartOf eg:the_witcher .
+
+eg:libro16
+    rdf:type dc:BibliographicResource ;
+    dc:title "La sangre de los elfos" ;
+    dc:creator "Andrzej Sapkowski" ;
+    dc:isPartOf eg:the_witcher .
+
+# Saga: Canción de Hielo y Fuego
+eg:cancion_de_hielo_y_fuego
+    rdf:type dc:Collection ;
+    dc:title "Canción de Hielo y Fuego Saga" .
+
+eg:libro17
+    rdf:type dc:BibliographicResource ;
+    dc:title "Juego de Tronos" ;
+    dc:creator "George R.R. Martin" ;
+    dc:isPartOf eg:cancion_de_hielo_y_fuego .
+
+eg:libro18
+    rdf:type dc:BibliographicResource ;
+    dc:title "Choque de reyes" ;
+    dc:creator "George R.R. Martin" ;
+    dc:isPartOf eg:cancion_de_hielo_y_fuego .
+
+eg:libro19
+    rdf:type dc:BibliographicResource ;
+    dc:title "Tormenta de espadas" ;
+    dc:creator "George R.R. Martin" ;
+    dc:isPartOf eg:cancion_de_hielo_y_fuego .
+
+eg:libro20
+    rdf:type dc:BibliographicResource ;
+    dc:title "Festín de cuervos" ;
+    dc:creator "George R.R. Martin" ;
+    dc:isPartOf eg:cancion_de_hielo_y_fuego .
+
+eg:libro21
+    rdf:type dc:BibliographicResource ;
+    dc:title "Danza de dragones" ;
+    dc:creator "George R.R. Martin" ;
+    dc:isPartOf eg:cancion_de_hielo_y_fuego .
+
+# Saga: Los Juegos del Hambre
+eg:los_juegos_del_hambre
+    rdf:type dc:Collection ;
+    dc:title "Los Juegos del Hambre Saga" .
+
+eg:libro22
+    rdf:type dc:BibliographicResource ;
+    dc:title "Los Juegos del Hambre" ;
+    dc:creator "Suzanne Collins" ;
+    dc:isPartOf eg:los_juegos_del_hambre .
+
+eg:libro23
+    rdf:type dc:BibliographicResource ;
+    dc:title "En llamas" ;
+    dc:creator "Suzanne Collins" ;
+    dc:isPartOf eg:los_juegos_del_hambre .
+
+eg:libro24
+    rdf:type dc:BibliographicResource ;
+    dc:title "Sinsajo" ;
+    dc:creator "Suzanne Collins" ;
+    dc:isPartOf eg:los_juegos_del_hambre .
+
+# Saga: La Rueda del Tiempo
+eg:la_rueda_del_tiempo
+    rdf:type dc:Collection ;
+    dc:title "La Rueda del Tiempo Saga" .
+
+eg:libro25
+    rdf:type dc:BibliographicResource ;
+    dc:title "El ojo del mundo" ;
+    dc:creator "Robert Jordan" ;
+    dc:isPartOf eg:la_rueda_del_tiempo .
+
+eg:libro26
+    rdf:type dc:BibliographicResource ;
+    dc:title "La Gran Cacería" ;
+    dc:creator "Robert Jordan" ;
+    dc:isPartOf eg:la_rueda_del_tiempo .
+
+eg:libro27
+    rdf:type dc:BibliographicResource ;
+    dc:title "El Dragón Renacido" ;
+    dc:creator "Robert Jordan" ;
+    dc:isPartOf eg:la_rueda_del_tiempo .

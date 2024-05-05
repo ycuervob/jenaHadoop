@@ -1,0 +1,19 @@
+<http://www.si2.com/si2/libro18>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/cancion_de_hielo_y_fuego> .
+
+<http://www.si2.com/si2/libro20>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/cancion_de_hielo_y_fuego> .
+
+<http://www.si2.com/si2/libro17>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/cancion_de_hielo_y_fuego> .
+
+<http://www.si2.com/si2/libro19>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/cancion_de_hielo_y_fuego> .
+
+<http://www.si2.com/si2/libro21>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/cancion_de_hielo_y_fuego> .
