@@ -1,3 +1,6 @@
 /target/
 /JenaTaller/divided/
 .classpath
+/.settings
+.project
+.settings/org.eclipse.core.resources.prefs
