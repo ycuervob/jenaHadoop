@@ -143,6 +143,7 @@ public class RDFSplitter {
                 }
             }
         }
+
         fs.close();
     }
 
