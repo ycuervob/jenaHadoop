@@ -3,7 +3,15 @@ package jena;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.jena.rdf.model.*;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
 import java.io.File;
@@ -35,6 +43,7 @@ public class RDFSplitter {
         try {
            uploadFilesToHDFS();
            System.out.println("Subido a hadoop");
+           runMapReduceJob();
         } catch (Exception e) {
             System.out.println("Error en hadoop");
             System.out.println("hadoop siempre explota error normal: "+e);
@@ -134,7 +143,51 @@ public class RDFSplitter {
                 }
             }
         }
-
         fs.close();
+    }
+
+    private static void runMapReduceJob() throws Exception {
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, "RDFMapReduce");
+        job.setJarByClass(RDFSplitter.class);
+        job.setMapperClass(RDFSplitter.RDFMapper.class);
+        job.setReducerClass(RDFSplitter.RDFReducer.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+
+        // Rutas de entrada y salida en HDFS
+        Path inputPath = new Path("/hadoop/dfs/data/");
+        Path outputPath = new Path("/hadoop/dfs/output/");
+        FileInputFormat.setInputPaths(job, inputPath);
+        FileOutputFormat.setOutputPath(job, outputPath);
+
+        // Ejecutar el trabajo MapReduce
+        job.waitForCompletion(true);
+    }
+
+    public static class RDFMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+
+        private final static IntWritable one = new IntWritable(1);
+        private Text author = new Text();
+
+        public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+            // Parse RDF data and extract author information
+            String[] tokens = value.toString().split("\\s+");
+            if (tokens.length >= 3 && tokens[1].equals("dc:creator")) {
+                author.set(tokens[2]);
+                context.write(author, one);
+            }
+        }
+    }
+
+    public static class RDFReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+
+        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+            int sum = 0;
+            for (IntWritable val : values) {
+                sum += val.get();
+            }
+            context.write(key, new IntWritable(sum));
+        }
     }
 }
