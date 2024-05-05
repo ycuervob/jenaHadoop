@@ -2,4 +2,6 @@
 
 ## Requisitos
 
-Primero tiene que descargar jena de la [página oficial](https://jena.apache.org/download/index.cgi). Luego en Netbeans tiene que inclur las librerias de jena en el proyecto de maven.
+Primero tiene que descargar que tener eclipse instalado, luego crear una librería con los .jar en _JenaTaller/lib_.
+
+Importe el proyecto en eclipse, importando un proyecto de maveb, luego añada a la buildpath la librería que creó anteriormente.
