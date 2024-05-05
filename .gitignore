@@ -1,6 +1,0 @@
-# Ignorar archivos y directorios generados por Maven
-target/
-*.iml
-.idea/
-.settings/
-.classpath

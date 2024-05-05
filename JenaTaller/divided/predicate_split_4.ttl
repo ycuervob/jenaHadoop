@@ -1,0 +1,101 @@
+<http://www.si2.com/si2/cancion_de_hielo_y_fuego>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/los_juegos_del_hambre>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/libro7>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro23>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro2>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro16>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro11>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/el_senor_de_los_anillos>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/libro26>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro19>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro5>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro21>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro14>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/la_rueda_del_tiempo>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/the_witcher>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/libro8>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro24>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro3>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro17>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro12>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro27>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro6>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro22>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro1>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro15>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro10>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro9>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/harry_potter>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
+
+<http://www.si2.com/si2/libro25>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro4>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro18>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro20>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/libro13>
+        a       <http://purl.org/dc/elements/1.1/BibliographicResource> .
+
+<http://www.si2.com/si2/cronicas_de_narnia>
+        a       <http://purl.org/dc/elements/1.1/Collection> .
