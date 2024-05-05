@@ -128,7 +128,7 @@ public class RDFSplitter {
                     try{
                     	fs.copyFromLocalFile(localFilePath, hdfsFilePath);
                     }catch(IOException e) {
-                    	System.out.println("Supuesto error pero de seguro se subió: " +e);
+                    	System.out.println("Archivo subido, WARNING: " +e);
                     }
                     
                     System.out.println("Archivo copiado a HDFS: " + file.getName());
