@@ -45,8 +45,7 @@ public class RDFSplitter {
            System.out.println("Subido a hadoop");
            runMapReduceJob();
         } catch (Exception e) {
-            System.out.println("Error en hadoop");
-            System.out.println("hadoop siempre explota error normal: "+e);
+        	e.printStackTrace();
         }
         
         
@@ -149,6 +148,8 @@ public class RDFSplitter {
 
     private static void runMapReduceJob() throws Exception {
         Configuration conf = new Configuration();
+        String hdfsUrl = "hdfs://localhost:9000";
+        conf.set("fs.defaultFS", hdfsUrl);
         Job job = Job.getInstance(conf, "RDFMapReduce");
         job.setJarByClass(RDFSplitter.class);
         job.setMapperClass(RDFSplitter.RDFMapper.class);
