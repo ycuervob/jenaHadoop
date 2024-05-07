@@ -20,7 +20,7 @@ public class Main {
         try {
         	hdfsfileManager.uploadFilesinFolderToHDFS(fileManager.getFolderOutputPath(), hdfsDirPath);
            System.out.println("Subido a hadoop");
-           hdfsfileManager.runMapReduceJob();
+           hdfsfileManager.runMapReduceJob(hdfsDirPath,"/hadoop/dfs/output/");
         } catch (Exception e) {
         	e.printStackTrace();
         }

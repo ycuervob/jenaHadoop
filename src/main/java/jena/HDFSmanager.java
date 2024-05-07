@@ -65,7 +65,7 @@ public class HDFSmanager {
 		fs.close();
 	}
 
-	public void runMapReduceJob() throws Exception {
+	public void runMapReduceJob(String source, String destination) throws Exception {
 
 		try {
 			// Create job
@@ -82,8 +82,8 @@ public class HDFSmanager {
 			// Input and Output
 			job.setInputFormatClass(TriplesInputFormat.class);
 			job.setOutputFormatClass(NTriplesNodeOutputFormat.class);
-			FileInputFormat.setInputPaths(job, new Path("/hadoop/dfs/data/"));
-			FileOutputFormat.setOutputPath(job, new Path("/hadoop/dfs/output/"));
+			FileInputFormat.setInputPaths(job, new Path(source));
+			FileOutputFormat.setOutputPath(job, new Path(destination));
 
 			// Launch the job and await completion
 			job.submit();
