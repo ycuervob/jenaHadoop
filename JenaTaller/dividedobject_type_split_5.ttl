@@ -1,0 +1,11 @@
+<http://www.si2.com/si2/libro16>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/the_witcher> .
+
+<http://www.si2.com/si2/libro15>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/the_witcher> .
+
+<http://www.si2.com/si2/libro14>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/the_witcher> .

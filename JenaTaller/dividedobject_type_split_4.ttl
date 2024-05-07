@@ -1,0 +1,11 @@
+<http://www.si2.com/si2/libro22>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/los_juegos_del_hambre> .
+
+<http://www.si2.com/si2/libro24>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/los_juegos_del_hambre> .
+
+<http://www.si2.com/si2/libro23>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/los_juegos_del_hambre> .

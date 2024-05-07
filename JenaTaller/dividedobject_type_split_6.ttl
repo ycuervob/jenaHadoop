@@ -1,0 +1,11 @@
+<http://www.si2.com/si2/libro13>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/cronicas_de_narnia> .
+
+<http://www.si2.com/si2/libro12>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/cronicas_de_narnia> .
+
+<http://www.si2.com/si2/libro11>
+        <http://purl.org/dc/elements/1.1/isPartOf>
+                <http://www.si2.com/si2/cronicas_de_narnia> .
