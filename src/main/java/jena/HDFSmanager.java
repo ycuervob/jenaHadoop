@@ -15,13 +15,18 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.jena.hadoop.rdf.io.input.TriplesInputFormat;
+import org.apache.jena.hadoop.rdf.io.output.ntriples.NTriplesNodeOutputFormat;
+import org.apache.jena.hadoop.rdf.mapreduce.count.NodeCountReducer;
+import org.apache.jena.hadoop.rdf.mapreduce.count.TripleNodeCountMapper;
+import org.apache.jena.hadoop.rdf.types.NodeWritable;
 
 public class HDFSmanager {
-	
+
 	private String hdfsUrl;
-	
+
 	private Configuration conf;
-		
+
 	public HDFSmanager(String hdfsUrl, Configuration conf) {
 		super();
 		this.hdfsUrl = hdfsUrl;
@@ -61,24 +66,40 @@ public class HDFSmanager {
 
 		fs.close();
 	}
-	
-	
-    public void runMapReduceJob() throws Exception {
-        Job job = Job.getInstance(conf, "RDFMapReduce");
-        job.setJarByClass(HDFSmanager.class);
-        job.setMapperClass(RDFMapper.class);
-        job.setReducerClass(RDFReducer.class);
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
 
-        Path inputPath = new Path("/hadoop/dfs/data/");
-        Path outputPath = new Path("/hadoop/dfs/output/");
-        FileInputFormat.setInputPaths(job, inputPath);
-        FileOutputFormat.setOutputPath(job, outputPath);
+	public void runMapReduceJob() throws Exception {
 
-        job.waitForCompletion(true);
-    }
-	
+		try {
+			// Create job
+			Job job = Job.getInstance(conf);
+			job.setJarByClass(HDFSmanager.class);
+			job.setJobName("RDF Triples Node Usage Count");
+
+			// Map/Reduce classes
+			job.setMapperClass(TripleNodeCountMapper.class);
+			job.setMapOutputKeyClass(NodeWritable.class);
+			job.setMapOutputValueClass(LongWritable.class);
+			job.setReducerClass(NodeCountReducer.class);
+
+			// Input and Output
+			job.setInputFormatClass(TriplesInputFormat.class);
+			job.setOutputFormatClass(NTriplesNodeOutputFormat.class);
+			FileInputFormat.setInputPaths(job, new Path("/hadoop/dfs/data/"));
+			FileOutputFormat.setOutputPath(job, new Path("/hadoop/dfs/output/"));
+
+			// Launch the job and await completion
+			job.submit();
+			if (job.monitorAndPrintJob()) {
+				// OK
+				System.out.println("Completed");
+			} else {
+				// Failed
+				System.err.println("Failed");
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
 
 	public Configuration getConf() {
 		return conf;
@@ -87,42 +108,40 @@ public class HDFSmanager {
 	public void setConf(Configuration conf) {
 		this.conf = conf;
 	}
-	
+
 	public String getHdfsUrl() {
 		return hdfsUrl;
 	}
 
-
 	public void setHdfsUrl(String hdfsUrl) {
 		this.hdfsUrl = hdfsUrl;
 	}
-	
-    public static class RDFMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
-        private final static IntWritable one = new IntWritable(1);
-        private Text author = new Text();
+	public static class RDFMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
-        public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            // Parse RDF data and extract author information
-            String[] tokens = value.toString().split("\\s+");
-            if (tokens.length >= 3 && tokens[1].equals("dc:creator")) {
-                author.set(tokens[2]);
-                context.write(author, one);
-            }
-        }
-    }
+		private final static IntWritable one = new IntWritable(1);
+		private Text author = new Text();
 
-    public static class RDFReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+			// Parse RDF data and extract author information
+			String[] tokens = value.toString().split("\\s+");
+			if (tokens.length >= 3 && tokens[1].equals("dc:creator")) {
+				author.set(tokens[2]);
+				context.write(author, one);
+			}
+		}
+	}
 
-        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-            int sum = 0;
-            for (IntWritable val : values) {
-                sum += val.get();
-            }
-            context.write(key, new IntWritable(sum));
-        }
-    }
+	public static class RDFReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+
+		public void reduce(Text key, Iterable<IntWritable> values, Context context)
+				throws IOException, InterruptedException {
+			int sum = 0;
+			for (IntWritable val : values) {
+				sum += val.get();
+			}
+			context.write(key, new IntWritable(sum));
+		}
+	}
 
 }
-
-

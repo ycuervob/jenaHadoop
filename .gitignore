@@ -1,5 +1,6 @@
 /target/
 /JenaTaller/divided/
+/JenaTaller/divided/*
 .classpath
 /.settings
 .project

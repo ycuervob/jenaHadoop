@@ -2,6 +2,7 @@ package jena;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
@@ -29,7 +31,7 @@ public class LocalFileManager {
 		this.nameRdfFile = nameRdfFile;
 		this.folderOutputName = folderOutputName;
 		this.baseDir = baseDir;
-		this.folderOutputPath = this.baseDir + this.folderOutputName;
+		this.folderOutputPath = this.baseDir + this.folderOutputName+ "\\";
 		this.inputFilePath = this.baseDir + this.nameRdfFile;
 		this.model.read(inputFilePath, "TURTLE");
 	}
@@ -45,34 +47,34 @@ public class LocalFileManager {
             }
             predicateModels.get(predicate).add(stmt);
         }
-        saveModels(predicateModels, folderOutputPath+"predicate_split");
+        saveModels(predicateModels, "predicate_split");
     }
-	
-	public void splitByObjectType() {
+
+    public void splitByObjectType() {
         StmtIterator iter = model.listStatements();
         Map<Resource, Model> objectTypeModels = new HashMap<>();
         while (iter.hasNext()) {
             Statement stmt = iter.nextStatement();
-            if (stmt.getObject().isResource()) {
-            	Resource object = stmt.getObject().asResource();
-                if (!objectTypeModels.containsKey(object)) {
-                    objectTypeModels.put(object, ModelFactory.createDefaultModel());
-                }
-                objectTypeModels.get(object).add(stmt);
+            RDFNode object = stmt.getObject();
+            if (object.isResource()) {
+            Resource objectType = object.asResource();
+            if (!objectTypeModels.containsKey(objectType)) {
+                objectTypeModels.put(objectType, ModelFactory.createDefaultModel());
             }
-          
+            objectTypeModels.get(objectType).add(stmt);
+            }
         }
-        saveModels(objectTypeModels, folderOutputPath+"object_type_split");
+        saveModels(objectTypeModels, "object_type_split");
     }
-	
-    private static void saveModels(Map<?, Model> models, String prefix) {
+
+    // Método para guardar modelos en archivos
+    private void saveModels(Map<?, Model> models, String prefix) {
         int i = 1;
-        for (Model model : models.values()) {
-            String fileName = prefix + "_" + i + ".ttl";
-            ensureDirectoryExists(fileName); 
-            try (OutputStream out = new FileOutputStream(fileName)) {
-                model.write(out, "TURTLE");
-            } catch (Exception e) {
+        ensureDirectoryExists(folderOutputPath);
+        for (Model m : models.values()) {
+            try (FileOutputStream out = new FileOutputStream(folderOutputPath + prefix + "_" + i + ".ttl")) {
+                m.write(out, "TURTLE");
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             i++;
