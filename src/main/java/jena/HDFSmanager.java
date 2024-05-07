@@ -17,8 +17,6 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.jena.hadoop.rdf.io.input.TriplesInputFormat;
 import org.apache.jena.hadoop.rdf.io.output.ntriples.NTriplesNodeOutputFormat;
-import org.apache.jena.hadoop.rdf.mapreduce.count.NodeCountReducer;
-import org.apache.jena.hadoop.rdf.mapreduce.count.TripleNodeCountMapper;
 import org.apache.jena.hadoop.rdf.types.NodeWritable;
 
 public class HDFSmanager {
