@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.jena.rdf.model.Model;
@@ -87,13 +88,28 @@ public class LocalFileManager {
             parentDirectory.mkdirs();
         }
     }
+    
+    public void deleteFilesinBaseDir() {
+    	File dir = new File(this.folderOutputPath);
+        System.out.println(dir);
+        if (dir != null && dir.isDirectory()) {
+        	File[] files = dir.listFiles();
+        	
+        	for (int i = 0; i < files.length; i++) {
+        		File f = files[i];
+				if(f.delete()) {
+					System.out.println("Archivo eliminado :" + f);
+				};
+			}
+        }
+    }    
 	
 	public String getNameRdfFile() {
 		return nameRdfFile;
 	}
 	public void setNameRdfFile(String nameRdfFile) {
 		this.nameRdfFile = nameRdfFile;
-	}
+	} 
 	public String getBaseDir() {
 		return baseDir;
 	}

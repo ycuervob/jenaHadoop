@@ -7,16 +7,14 @@ import java.net.URI;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.jena.hadoop.rdf.io.input.TriplesInputFormat;
 import org.apache.jena.hadoop.rdf.io.output.ntriples.NTriplesNodeOutputFormat;
+import org.apache.jena.hadoop.rdf.mapreduce.count.NodeCountReducer;
+import org.apache.jena.hadoop.rdf.mapreduce.count.TripleNodeCountMapper;
 import org.apache.jena.hadoop.rdf.types.NodeWritable;
 
 public class HDFSmanager {
@@ -65,7 +63,7 @@ public class HDFSmanager {
 		fs.close();
 	}
 
-	public void runMapReduceJob(String source, String destination) throws Exception {
+	public void runMapReduceCountJob(String source, String destination) throws Exception {
 
 		try {
 			// Create job
@@ -89,7 +87,7 @@ public class HDFSmanager {
 			job.submit();
 			if (job.monitorAndPrintJob()) {
 				// OK
-				System.out.println("Completed");
+				System.out.println("Counter Completed");
 			} else {
 				// Failed
 				System.err.println("Failed");
@@ -98,6 +96,41 @@ public class HDFSmanager {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public void runMapReduceGroupByObjectJob(String source, String destination) throws Exception {
+
+        try {
+            // Create job
+            Job job = Job.getInstance(conf);
+            job.setJarByClass(HDFSmanager.class);
+            job.setJobName("RDF Triples Group by Object");
+
+            // Map/Reduce classes
+            job.setMapperClass(TripleNodeGroupMapper.class);
+            job.setMapOutputKeyClass(NodeWritable.class);
+            job.setMapOutputValueClass(NodeWritable.class);
+            job.setReducerClass(NodeGroupReducer.class);
+
+            // Input and Output
+            job.setInputFormatClass(TriplesInputFormat.class);
+            job.setOutputFormatClass(NTriplesNodeOutputFormat.class);
+            FileInputFormat.setInputPaths(job, new Path(source));
+            FileOutputFormat.setOutputPath(job, new Path(destination));
+
+            // Launch the job and await completion
+            job.submit();
+            if (job.monitorAndPrintJob()) {
+                // OK
+                System.out.println("Grouping Completed");
+            } else {
+                // Failed
+                System.err.println("Failed");
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
 
 	public Configuration getConf() {
 		return conf;
@@ -115,31 +148,29 @@ public class HDFSmanager {
 		this.hdfsUrl = hdfsUrl;
 	}
 
-	public static class RDFMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+	public void deleteDirIfExist(String dir) throws IOException {
+		FileSystem fs = FileSystem.get(URI.create(hdfsUrl), conf);
 
-		private final static IntWritable one = new IntWritable(1);
-		private Text author = new Text();
+		// Obtener la lista de archivos en el directorio local
+		File localDir = new File(dir);
+		File[] files = localDir.listFiles();
+		// Eliminar archivos
 
-		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-			// Parse RDF data and extract author information
-			String[] tokens = value.toString().split("\\s+");
-			if (tokens.length >= 3 && tokens[1].equals("dc:creator")) {
-				author.set(tokens[2]);
-				context.write(author, one);
+		if (files != null) {
+			for (File file : files) {
+				if (file.isFile()) {
+					Path hdfsFilePath = new Path(dir + "/" + file.getName());
+					fs.delete(hdfsFilePath, true);
+					System.out.println("Archivo eliminado de HDFS: " + file.getName());
+				}
 			}
 		}
-	}
 
-	public static class RDFReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+		// Eliminar directorio
+		fs.delete(new Path(dir), true);
+		System.out.println("Directorio eliminado de HDFS: " + dir);
 
-		public void reduce(Text key, Iterable<IntWritable> values, Context context)
-				throws IOException, InterruptedException {
-			int sum = 0;
-			for (IntWritable val : values) {
-				sum += val.get();
-			}
-			context.write(key, new IntWritable(sum));
-		}
+		fs.close();
 	}
 
 }

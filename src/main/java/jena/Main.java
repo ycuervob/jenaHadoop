@@ -3,13 +3,35 @@ package jena;
 public class Main {
 
     public static void main(String[] args) {
-    	String nameRdfFile  = "datos_libros.ttl";
-    	String urlhdfs = "hdfs://localhost:9000";
-    	String baseDir =  ".\\JenaTaller\\";
-    	String folderOutputName = "divided";
-    	String hdfsDirPath = "/hadoop/dfs/data/";  	
+
+        String nameRdfFile;
+    	String urlhdfs;
+    	String baseDir;
+    	String folderOutputName;
+    	String hdfsDirPath;  
+    	
+        if (args.length == 0) {
+            nameRdfFile = "datos_libros.ttl";
+            urlhdfs = "hdfs://localhost:9000";
+            baseDir =  ".\\JenaTaller\\";
+            folderOutputName = "divided";
+            hdfsDirPath = "/hadoop/dfs/data/";
+        } else if (args.length == 5) {
+            nameRdfFile = args[0];
+            urlhdfs = args[1];
+            baseDir = args[2];
+            folderOutputName = args[3];
+            hdfsDirPath = args[4];
+        } else {
+            System.out.println("Error en los argumentos");
+            return;
+        }
+
         
         LocalFileManager fileManager = new LocalFileManager(baseDir, nameRdfFile, folderOutputName);
+        System.out.println("-- Eliminando archivos locales viejos --");
+        fileManager.deleteFilesinBaseDir();
+        System.out.println("-- Terminado eliminacion --");
         fileManager.splitByPredicate();
         fileManager.splitByObjectType();
         
@@ -18,9 +40,13 @@ public class Main {
         HDFSmanager hdfsfileManager = new HDFSmanager(urlhdfs);
         
         try {
+        	hdfsfileManager.deleteDirIfExist(hdfsDirPath);
+        	hdfsfileManager.deleteDirIfExist("/hadoop/dfs/output/");
+        	hdfsfileManager.deleteDirIfExist("/hadoop/dfs/output1/");
         	hdfsfileManager.uploadFilesinFolderToHDFS(fileManager.getFolderOutputPath(), hdfsDirPath);
            System.out.println("Subido a hadoop");
-           hdfsfileManager.runMapReduceJob(hdfsDirPath,"/hadoop/dfs/output/");
+           hdfsfileManager.runMapReduceCountJob(hdfsDirPath,"/hadoop/dfs/output/");
+           hdfsfileManager.runMapReduceGroupByObjectJob(hdfsDirPath, "/hadoop/dfs/output1/");
         } catch (Exception e) {
         	e.printStackTrace();
         }
