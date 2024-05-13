@@ -11,6 +11,18 @@ public class Main {
     	String hdfsDirPath;  
     	
         if (args.length == 0) {
+        	System.out.println("Usage: java TuClase <nameRdfFile> <urlhdfs> <baseDir> <folderOutputName> <hdfsDirPath>");
+            System.out.println("Where:");
+            System.out.println("<nameRdfFile>: Nombre del archivo .ttl junto con su extensión.");
+            System.out.println("<urlhdfs>: HDFS URL.");
+            System.out.println("<baseDir>: Directorio base.");
+            System.out.println("<folderOutputName>: Nombre de la carpeta de salida dentro del directorio base.");
+            System.out.println("<hdfsDirPath>: Ruta dentro del sistema hdfs a copiar archivos.");
+            System.out.println("Example: java -jar main.jar datos_libros.ttl hdfs://localhost:9000 .\\JenaTaller\\ divided /hadoop/dfs/data/");
+            
+            System.out.println("Corriendo con valores del ejemplo base ---------");
+            
+            nameRdfFile = "datos_libros.ttl";
             nameRdfFile = "datos_libros.ttl";
             urlhdfs = "hdfs://localhost:9000";
             baseDir =  ".\\JenaTaller\\";
