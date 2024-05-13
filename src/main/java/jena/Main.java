@@ -11,7 +11,7 @@ public class Main {
     	String hdfsDirPath;  
     	
         if (args.length == 0) {
-        	System.out.println("Usage: java TuClase <nameRdfFile> <urlhdfs> <baseDir> <folderOutputName> <hdfsDirPath>");
+        	System.out.println("Usage: java -jar Main.jar <nameRdfFile> <urlhdfs> <baseDir> <folderOutputName> <hdfsDirPath>");
             System.out.println("Where:");
             System.out.println("<nameRdfFile>: Nombre del archivo .ttl junto con su extensión.");
             System.out.println("<urlhdfs>: HDFS URL.");
