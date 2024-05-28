@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.jena.rdf.model.Model;
@@ -83,7 +82,7 @@ public class LocalFileManager {
     
     private static void ensureDirectoryExists(String filePath) {
         File file = new File(filePath);
-        File parentDirectory = file.getParentFile();
+        File parentDirectory = file.getAbsoluteFile();
         if (parentDirectory != null && !parentDirectory.exists()) {
             parentDirectory.mkdirs();
         }

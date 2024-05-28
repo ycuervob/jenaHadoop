@@ -1,15 +1,12 @@
 package jena;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.hadoop.mapreduce.ReduceContext;
 import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.jena.graph.Node;
 import org.apache.jena.hadoop.rdf.types.NodeWritable;
 
@@ -34,9 +31,7 @@ public class NodeGroupReducer extends Reducer<NodeWritable, NodeWritable, NodeWr
        //System.out.print("]\n");
        context.write(key, valuesArray);
        System.out.println(key + " - " + valuesArray);
-        
-       
-        
+                
     }
     
 	@Override
